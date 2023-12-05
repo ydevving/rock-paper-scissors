@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.title {
+    text-align: center;
+}
+
+.result {
+    font-size: 23px;
+}
+
+.container {
+    background: rgba(8, 187, 211, 0.6);
+    margin: auto;
+    margin-top: 50px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 15px;
+}
+
+button {
+    width: 200px;
+    height: 200px;
+}

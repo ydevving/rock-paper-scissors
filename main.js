@@ -1,3 +1,23 @@
+let [rock_class, paper_class, scissors_class] = ['rock-btn', 'paper-btn', 'scissors-btn']
+
+let rock_btn = document.getElementsByClassName(rock_class)[0];
+let paper_btn = document.getElementsByClassName(paper_class)[0];
+let scissors_btn = document.getElementsByClassName(scissors_class)[0];
+
+let buttons = [rock_btn, paper_btn, scissors_btn];
+let result = document.getElementsByClassName('result')[0]
+console.log(rock_btn);
+
+for (let b of buttons) {
+    b.addEventListener('click', function() {
+        let choice = (this.className == rock_class) ? 'Rock' : (this.className == paper_class) ? 'Paper' : (this.className == scissors_class) ? 'Scissors' : null;
+
+        let round_result = playRound(choice, getComputerChoice());
+
+        result.textContent = round_result
+    }, false);
+}
+
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
@@ -32,5 +52,3 @@ function game() {
         console.log(result);
     }
 }
-
-game()
