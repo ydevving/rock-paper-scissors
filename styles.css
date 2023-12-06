@@ -1,5 +1,6 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
+    background-color: rgba(250, 255, 253, 1);
 }
 
 .title {
@@ -8,10 +9,12 @@ body {
 
 .result {
     font-size: 23px;
+    margin-top: 50px;
 }
 
 .container {
-    background: rgba(8, 187, 211, 0.6);
+    background: rgba(52, 46, 55, 0.6);
+    border-radius: 15px;
     margin: auto;
     margin-top: 50px;
     width: 50%;
@@ -20,6 +23,15 @@ body {
     align-items: center;
     flex-direction: column;
     padding: 15px;
+    padding-top: 40px;
+}
+
+.score {
+    width: 100%;
+    padding-bottom: 20px;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-around;
 }
 
 button {

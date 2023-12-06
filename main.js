@@ -5,8 +5,14 @@ let paper_btn = document.getElementsByClassName(paper_class)[0];
 let scissors_btn = document.getElementsByClassName(scissors_class)[0];
 
 let buttons = [rock_btn, paper_btn, scissors_btn];
-let result = document.getElementsByClassName('result')[0]
-console.log(rock_btn);
+let result = document.getElementsByClassName('result')[0];
+let score = document.getElementsByClassName('score')[0];
+
+let player_score = 0, npc_score = 0, draws = 0;
+let round_win_requirements = 5;
+
+let player = document.querySelector('.score :nth-child(1)');
+let npc = document.querySelector('.score :nth-child(2)');
 
 for (let b of buttons) {
     b.addEventListener('click', function() {
@@ -14,7 +20,45 @@ for (let b of buttons) {
 
         let round_result = playRound(choice, getComputerChoice());
 
-        result.textContent = round_result
+        if (round_result) {
+            result.textContent = round_result[0];
+
+            if (round_result[1] === 1) {
+                player_score += 1;
+            } else if (round_result[1] === 2) {
+                npc_score += 1;
+            }
+
+            if (round_result[1] === 1 || round_result[1] === 2) {
+                if (player)
+                    player.textContent = "Score (you): " + player_score;
+                else
+                    player.textContent = "Error Occured!";
+                
+                if (npc)
+                    npc.textContent = "Score (Bot): " + npc_score;
+                else
+                    npc.textContent = "Error Occured!";
+            } else if (round_result[1] === 3) {
+                draws += 1;
+            }
+
+            if (player_score == round_win_requirements) {
+                result.textContent = "Player won the game!";
+            } else if (npc_score == round_win_requirements) {
+                result.textContent = "Bot won the game, better luck next time.";
+            }
+
+            if (player_score == round_win_requirements || npc_score == round_win_requirements) {
+                player_score = 0, npc_score = 0, draws = 0;
+
+                player.textContent = "Score (you): ";
+                npc.textContent = "Score (Bot): ";
+            }
+        }
+        else {
+            console.log("Something has gone wrong!");
+        }
     }, false);
 }
 
@@ -33,14 +77,14 @@ function playRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase();
     computerSelection = computerSelection.toLowerCase();
 
-    if (playerSelection == computerSelection) return "Draw";
-    else if (playerSelection == "rock" && computerSelection == "paper") return "You Lose! Paper beats Rock";
-    else if (playerSelection == "rock" && computerSelection == "scissors") return "You Win! Rock beats Scissors";
-    else if (playerSelection == "paper" && computerSelection == "rock") return "You Win! Paper beats Rock";
-    else if (playerSelection == "paper" && computerSelection == "scissors") return "You Lose! Scissors beats Paper";
-    else if (playerSelection == "scissors" && computerSelection == "rock") return "You Lose! Rock beats Scissors";
-    else if (playerSelection == "scissors" && computerSelection == "paper") return "You Win! Scissors cuts paper";
-    else return "Something has gone wrong";
+    if (playerSelection == computerSelection) return ["Draw", 3];
+    else if (playerSelection == "rock" && computerSelection == "paper") return ["You Lose! Paper beats Rock", 2];
+    else if (playerSelection == "rock" && computerSelection == "scissors") return ["You Win! Rock beats Scissors", 1];
+    else if (playerSelection == "paper" && computerSelection == "rock") return ["You Win! Paper beats Rock", 1];
+    else if (playerSelection == "paper" && computerSelection == "scissors") return ["You Lose! Scissors beats Paper", 2];
+    else if (playerSelection == "scissors" && computerSelection == "rock") return ["You Lose! Rock beats Scissors", 1];
+    else if (playerSelection == "scissors" && computerSelection == "paper") return ["You Win! Scissors cuts paper", 1];
+    else return null;
 }
 
 function game() {
